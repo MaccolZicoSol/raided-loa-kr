@@ -1,184 +1,196 @@
 {
-  "Valtan G1": {
-    "names": ["Dark Mountain Predator", "Destroyer Lucas", "Leader Lugaru"],
-    "difficulties": ["Normal", "Hard", "Inferno", "Solo"]
+  "발탄 1관문": {
+    "names": ["검은 산의 포식자", "파괴자 루카스", "통솔자 루가루"],
+    "difficulties": ["노말", "하드", "헬", "솔로"]
   },
-  "Valtan G2": {
-    "names": ["Demon Beast Commander Valtan", "Ravaged Tyrant of Beasts"],
-    "difficulties": ["Normal", "Hard", "Inferno", "Solo"]
+  "발탄 2관문": {
+    "names": ["마수군단장 발탄", "찢겨진 마수의 군주"],
+    "difficulties": ["노말", "하드", "헬", "솔로"]
   },
-  "Vykas G1": {
-    "names": ["Incubus Morphe", "Nightmarish Morphe"],
-    "difficulties": ["Inferno"]
+  "비아키스 1관문": {
+    "names": ["인큐버스 모르페", "악몽의 모르페"],
+    "difficulties": ["헬"]
   },
-  "Vykas G2": {
-    "names": ["Covetous Devourer Vykas"],
-    "difficulties": ["Normal", "Hard", "Inferno", "Solo"]
+  "비아키스 2관문": {
+    "names": ["욕망의 탐식자 비아키스"],
+    "difficulties": ["노말", "하드", "헬", "솔로"]
   },
-  "Vykas G3": {
-    "names": ["Covetous Legion Commander Vykas"],
-    "difficulties": ["Normal", "Hard", "Inferno", "Solo"]
+  "비아키스 3관문": {
+    "names": ["욕망군단장 비아키스"],
+    "difficulties": ["노말", "하드", "헬", "솔로"]
   },
-  "Clown G1": {
-    "names": ["Saydon"],
-    "difficulties": ["Normal", "Inferno", "Solo"]
+  "쿠크세이튼 1관문": {
+    "names": ["세이튼"],
+    "difficulties": ["노말", "헬", "솔로"]
   },
-  "Clown G2": {
-    "names": ["Kakul"],
-    "difficulties": ["Normal", "Inferno", "Solo"]
+  "쿠크세이튼 2관문": {
+    "names": ["쿠크"],
+    "difficulties": ["노말", "헬", "솔로"]
   },
-  "Clown G3": {
-    "names": ["Kakul-Saydon", "Encore-Desiring Kakul-Saydon"],
-    "difficulties": ["Normal", "Inferno", "Solo"]
+  "쿠크세이튼 3관문": {
+    "names": ["쿠크세이튼", "앵콜을 외친 쿠크세이튼"],
+    "difficulties": ["노말", "헬", "솔로"]
   },
-  "Brelshaza G1": {
-    "names": ["Gehenna Helkasirs"],
-    "difficulties": ["Normal", "Hard", "Solo"]
+  "아브렐슈드 1관문": {
+    "names": ["게헤나 헬카서스"],
+    "difficulties": ["노말", "하드", "솔로"]
   },
-  "Brelshaza G2": {
-    "names": ["Ashtarot"],
-    "difficulties": ["Normal", "Hard", "Solo"]
+  "아브렐슈드 2관문": {
+    "names": ["아슈타로테"],
+    "difficulties": ["노말", "하드", "솔로"]
   },
-  "Brelshaza G3": {
-    "names": ["Primordial Nightmare"],
-    "difficulties": ["Normal", "Hard", "Solo"]
+  "아브렐슈드 3관문": {
+    "names": ["태초의 악몽"],
+    "difficulties": ["노말", "하드", "솔로"]
   },
-  "Brelshaza G4": {
-    "names": ["Phantom Legion Commander Brelshaza"],
-    "difficulties": ["Normal", "Hard", "Inferno", "Solo"]
+  "아브렐슈드 4관문": {
+    "names": ["몽환군단장 아브렐슈드"],
+    "difficulties": ["노말", "하드", "헬", "솔로"]
   },
-  "Brelshaza G5": {
+  "아브렐슈드 5관문": {
     "names": [
-      "Brelshaza, Monarch of Nightmares",
-      "Imagined Primordial Nightmare",
-      "Pseudospace Primordial Nightmare"
+      "악몽의 지배자 아브렐슈드",
+      "심상 태초의 악몽",
+      "아공간 태초의 악몽"
     ],
-    "difficulties": ["Inferno"]
+    "difficulties": ["헬"]
   },
-  "Kayangel G1": {
-    "names": ["Tienis"],
-    "difficulties": ["Normal", "Hard", "Solo"]
+  "카양겔 1관문": {
+    "names": ["티엔"],
+    "difficulties": ["노말", "하드", "솔로"]
   },
-  "Kayangel G2": {
-    "names": ["Prunya"],
-    "difficulties": ["Normal", "Hard", "Solo"]
+  "카양겔 2관문": {
+    "names": ["프리우나"],
+    "difficulties": ["노말", "하드", "솔로"]
   },
-  "Kayangel G3": {
-    "names": ["Lauriel"],
-    "difficulties": ["Normal", "Hard", "Solo"]
+  "카양겔 3관문": {
+    "names": ["라우리엘"],
+    "difficulties": ["노말", "하드", "솔로"]
   },
-  "Akkan G1": {
-    "names": ["Griefbringer Maurug", "Evolved Maurug"],
-    "difficulties": ["Normal", "Hard", "Solo"]
+  "일리아칸 1관문": {
+    "names": ["비통의 지배자 마우르그", "진화된 마우르그"],
+    "difficulties": ["노말", "하드", "솔로"]
   },
-  "Akkan G2": {
-    "names": ["Lord of Degradation Akkan"],
-    "difficulties": ["Normal", "Hard", "Solo"]
+  "일리아칸 2관문": {
+    "names": ["쇠락의 군주 일리아칸"],
+    "difficulties": ["노말", "하드", "솔로"]
   },
-  "Akkan G3": {
-    "names": ["Plague Legion Commander Akkan", "Lord of Kartheon Akkan"],
-    "difficulties": ["Normal", "Hard", "Solo"]
+  "일리아칸 3관문": {
+    "names": ["질병군단장 일리아칸", "일리아칸, 카르테론의 군주"],
+    "difficulties": ["노말", "하드", "솔로"]
   },
-  "Ivory Tower G1": {
-    "names": ["Kaltaya, the Blooming Chaos"],
-    "difficulties": ["Normal", "Hard", "Solo"]
+  "상아탑 1관문": {
+    "names": ["피어나는 혼돈, 칼테이야"],
+    "difficulties": ["노말", "하드", "솔로"]
   },
-  "Ivory Tower G2": {
-    "names": ["Rakathus, the Lurking Arrogance"],
-    "difficulties": ["Normal", "Hard", "Solo"]
+  "상아탑 2관문": {
+    "names": ["웅크린 교만, 라카이서스"],
+    "difficulties": ["노말", "하드", "솔로"]
   },
-  "Ivory Tower G3": {
+  "상아탑 3관문": {
     "names": [
-      "Lazaram, the Trailblazer",
-      "Subordinated Vertus",
-      "Subordinated Calventus",
-      "Subordinated Legoros",
-      "Brand of Subordination"
+      "길을 여는 자, 라자람",
+      "종속된 베르투스",
+      "종속된 칼벤투스",
+      "종속된 레기오로스",
+      "종속의 낙인"
     ],
-    "difficulties": ["Normal", "Hard", "Solo"]
+    "difficulties": ["노말", "하드", "솔로"]
   },
-  "Thaemine G1": {
-    "names": ["Killineza the Dark Worshipper"],
-    "difficulties": ["Normal", "Hard"]
+  "카멘 1관문": {
+    "names": ["칠흑의 숭배자, 킬리네사"],
+    "difficulties": ["노말", "하드"]
   },
-  "Thaemine G2": {
+  "카멘 2관문": {
     "names": [
-      "Valinak, Knight of Darkness",
-      "Valinak, Taboo Usurper",
-      "Valinak, Herald of the End"
+      "어둠의 기사, 발리나크",
+      "금기를 삼킨 자, 발리나크",
+      "종언을 고하는 자, 발리나크"
     ],
-    "difficulties": ["Normal", "Hard"]
+    "difficulties": ["노말", "하드"]
   },
-  "Thaemine G3": {
-    "names": ["Thaemine the Lightqueller", "Dark Greatsword"],
-    "difficulties": ["Normal", "Hard", "The First"]
+  "카멘 3관문": {
+    "names": ["빛을 꺼트리는 자, 카멘", "어둠의 대검"],
+    "difficulties": ["노말", "하드", "더 퍼스트"]
   },
-  "Thaemine G4": {
+  "카멘 4관문": {
     "names": [
-      "Darkness Legion Commander Thaemine",
-      "Thaemine Prokel",
-      "Thaemine, Conqueror of Stars"
+      "어둠군단장 카멘",
+      "내부 카멘",
+      "별을 제패한 자, 카멘"
     ],
-    "difficulties": ["Hard", "The First"]
+    "difficulties": ["하드", "더 퍼스트"]
   },
-  "Echidna G1": {
-    "names": ["Red Doom Narkiel", "Agris"],
-    "difficulties": ["Normal", "Hard"]
+  "에키드나 1관문": {
+    "names": ["붉은 재앙, 다르키엘", "아그리스"],
+    "difficulties": ["노말", "하드"]
   },
-  "Echidna G2": {
+  "에키드나 2관문": {
     "names": [
-      "Echidna",
-      "Covetous Master Echidna",
-      "Desire in Full Bloom, Echidna",
-      "Alcaone, the Twisted Venom",
-      "Agris, the Devouring Bog"
+      "에키드나",
+      "욕망의 주인, 에키드나",
+      "만개한 욕망, 에키드나",
+      "뒤엉킨 맹독, 알키오네",
+      "삼키는 수렁, 아그리스"
     ],
-    "difficulties": ["Normal", "Hard"]
+    "difficulties": ["노말", "하드"]
   },
-  "Behemoth G1": {
+  "베히모스 1관문": {
     "names": [
-      "Behemoth, the Storm Commander",
-      "Despicable Skolakia",
-      "Untrue Crimson Yoho",
-      "Ruthless Lakadroff",
-      "Vicious Argeos"
+      "폭풍의 지휘관, 베히모스",
+      "비열한 스콜라키아",
+      "거짓된 핏빛의 요호",
+      "무자비한 라칸드로프",
+      "악랄한 아게오로스"
     ],
-    "difficulties": ["Normal"]
+    "difficulties": ["노말"]
   },
-  "Behemoth G2": {
-    "names": ["Behemoth, Cruel Storm Slayer"],
-    "difficulties": ["Normal"]
+  "베히모스 2관문": {
+    "names": ["잔혹한 폭풍의 처단자, 베히모스"],
+    "difficulties": ["노말"]
   },
-  "Deskaluda": {
-    "names": ["Deskaluda"],
+  "에기르 1관문": {
+    "names": ["죽음의 왕 일리아칸"],
+    "difficulties": ["노말", "하드"]
+  },
+  "에기르 2관문": {
+    "names": ["짓밟는 자, 에기르"],
+    "difficulties": ["노말", "하드"]
+  },
+  "데스칼루다": {
+    "names": ["데스칼루다"],
     "difficulties": [""]
   },
-  "Kungelanium": {
-    "names": ["Kungelanium"],
+  "쿤겔라니움": {
+    "names": ["쿤겔라니움"],
     "difficulties": [""]
   },
-  "Achates": {
-    "names": ["Achates"],
-    "difficulties": ["Trial"]
+  "아카테스": {
+    "names": ["아카테스"],
+    "difficulties": ["시련"]
   },
-  "Caliligos": {
-    "names": ["Caliligos"],
-    "difficulties": ["Trial"]
+  "칼엘리고스": {
+    "names": ["칼엘리고스"],
+    "difficulties": ["시련"]
   },
-  "Hanumatan": {
-    "names": ["Hanumatan"],
-    "difficulties": ["", "Trial"]
+  "하누마탄": {
+    "names": ["하누마탄"],
+    "difficulties": ["", "시련"]
   },
-  "Sonavel": {
-    "names": ["Sonavel"],
+  "소나벨": {
+    "names": ["소나벨"],
     "difficulties": [""]
   },
-  "Gargadeth": {
-    "names": ["Gargadeth"],
+  "가르가디스": {
+    "names": ["가르가디스"],
     "difficulties": [""]
   },
-  "Veskal": {
-    "names": ["Veskal"],
+  "베스칼": {
+    "names": ["베스칼"],
+    "difficulties": [""]
+  },
+  "아게오로스": {
+    "names": ["아게오로스"],
     "difficulties": [""]
   }
 }

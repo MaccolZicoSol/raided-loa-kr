@@ -1,9 +1,9 @@
 ---
-title: Progression Analysis
+title: 진행 분석
 toc: false
 ---
 
-<h1>Progression Analysis</h1>
+<h1>진행 분석</h1>
 
 <div class="grid grid-cols-2" style="grid-auto-rows: auto;">
     <div class="card">
@@ -17,11 +17,14 @@ toc: false
       ${clearedToggle ? clearedToggle : ""}
     </div>
     <div>
-        Load your encounters.db to show analysis tools. This file can be found 
-        in your database folder (e.g., C:\Users\[USER]\AppData\Local\LOA Logs). 
-        You can also get to this folder from your settings of LOA Logs in the 
-        database page. WARNING: if your database is very large, this will take
-        a lot of RAM and extremely large databases may simply not work, sorry!
+        오리지널 : <a href="https://raided.pro/loa-logs">https://raided.pro/loa-logs</a>
+        <br />
+        <br />
+        encounters.db 파일을 로드하여 분석해서 출력해주는 도구. 이 파일은 
+        LOA Logs KR의 설정에서 데이터베이스 탭으로 이동하여 이 폴더에 접근할 수 있습니다.
+        또는 폴더(C:\Users\[USER]\AppData\Local\LOA Log KR)에 직접 접근할 수 있습니다.
+        <br />
+        주의: 데이터베이스의 용량이 클수록 RAM도 많이 필요하며, 용량이 매우 클 경우에는 작동하지 않을 수 있습니다. 죄송합니다!
     </div>
 </div>
 
@@ -40,34 +43,51 @@ const encounters = Object.keys(encounterDict)
   );
 const hpBarMap = await FileAttachment("bossHPBars.json").json();
 
-const supportClasses = ["Bard", "Paladin", "Artist"];
+const supportClasses = ["바드", "홀리나이트", "도화가"];
 
 function formatPercent(x) {
   return Math.round(x * 1000) / 10 + "%";
 }
 
 function formatMillions(x) {
-  return Math.round(x / 100_000) / 10 + "M";
+  return abbreviateNumber(x);
 }
 
 function formatThousands(x) {
-  return Math.round(x / 1000) + "K";
+  return abbreviateNumber(x);
+}
+
+function abbreviateNumber(n) {
+  if (n >= 1e4 && n < 1e6)
+    return (n / 1e4).toFixed(1) + "만"
+  if (n >= 1e6 && n < 1e8)
+    return (n / 1e4).toFixed(0) + "만"
+  if (n >= 1e8 && n < 1e10)
+    return (n / 1e8).toFixed(1) + "억"
+  if (n >= 1e10 && n < 1e12)
+    return (n / 1e8).toFixed(0) + "억"
+  if (n >= 1e12 && n < 1e14)
+    return (n / 1e12).toFixed(1) + "조"
+  if (n >= 1e14)
+    return (n / 1e12).toFixed(0) + "조"
+  else
+    return String(Number(n).toFixed(0));
 }
 
 function formatDuration(x) {
   let progTimeStr = "";
   if (x > 60 * 60) {
-    progTimeStr = `${Math.floor(x / 60 / 60)}h `;
+    progTimeStr = `${Math.floor(x / 60 / 60)}시 `;
     x %= 60 * 60;
   }
-  progTimeStr += `${Math.floor(x / 60)}m ${Math.round(x % 60)}s`;
+  progTimeStr += `${Math.floor(x / 60)}분 ${Math.round(x % 60)}초`;
 
   return progTimeStr;
 }
 ```
 
 ```js uploader
-const fileUpload = Inputs.file({ label: "Load encounters.db", accept: ".db" });
+const fileUpload = Inputs.file({ label: "encounters.db 로드", accept: ".db" });
 const file = Generators.input(fileUpload);
 ```
 
@@ -82,11 +102,11 @@ if (!!file) {
 let encounterText, selectedEncounter;
 if (!!db) {
   encounterText = Inputs.text({
-    label: "Encounter",
-    placeholder: "Type to search",
+    label: "레이드",
+    placeholder: "검색어 입력",
     datalist: encounters,
     required: true,
-    submit: true,
+    submit: "선택"
   });
 
   selectedEncounter = Generators.input(encounterText);
@@ -110,13 +130,13 @@ weekStart.setHours(0, 0, 0, 0); // TODO: Account for different server resets
 let dateStart, dateEnd, dateStartSelect, dateEndSelect;
 if (!!db) {
   dateStartSelect = Inputs.datetime({
-    label: "Start Date",
+    label: "시작 날짜",
     value: weekStart,
   });
   dateStart = Generators.input(dateStartSelect);
 
   dateEndSelect = Inputs.datetime({
-    label: "End Date",
+    label: "종료 날짜",
     value: now,
   });
   dateEnd = Generators.input(dateEndSelect);
@@ -127,7 +147,7 @@ if (!!db) {
 let minDuration, minDurationRange;
 if (!!db) {
   minDurationRange = Inputs.range([0, 1200], {
-    label: "Min Duration (s)",
+    label: "최소 소요 시간 (초)",
     step: 10,
     value: 30,
   });
@@ -140,7 +160,7 @@ if (!!db) {
 let maxDuration, maxDurationRange;
 if (!!db) {
   maxDurationRange = Inputs.range([0, 1800], {
-    label: "Max Duration (s)",
+    label: "최대 소요 시간 (초)",
     step: 10,
     value: 1800,
   });
@@ -153,8 +173,8 @@ if (!!db) {
 let nameTextArea, nameFilter;
 if (!!db) {
   nameTextArea = Inputs.textarea({
-    label: "Names (comma separated)",
-    placeholder: "Leave blank to include all",
+    label: "이름 (구분자 ,)",
+    placeholder: "빈칸일시 모두 포함",
   });
 
   nameFilter = Generators.input(nameTextArea);
@@ -165,7 +185,7 @@ if (!!db) {
 let clearedToggle, filterCleared;
 if (!!db) {
   clearedToggle = Inputs.toggle({
-    label: "Show only cleared",
+    label: "클리어만 출력",
     value: false,
   });
   filterCleared = Generators.input(clearedToggle);
@@ -176,8 +196,8 @@ if (!!db) {
 let selectedBossNames, selectedBossBars, selectedBossTotalBars;
 
 if (!!selectedEncounter) {
-  selectedBossNames = encounterDict[selectedEncounter.split(" - ")[0]]["names"];
-  selectedBossBars = selectedBossNames.map((name) => hpBarMap[name]);
+  selectedBossNames = encounterDict[selectedEncounter.split(" - ")[0]]?.["names"] || [selectedEncounter];
+  selectedBossBars = selectedBossNames.map((name) => hpBarMap[name] || 1);
   selectedBossTotalBars = selectedBossBars
     .filter((bars) => !!bars)
     .reduce((a, b) => a + b, 0);
@@ -190,10 +210,10 @@ let filteredIDs;
 // console.log(dateStart);
 // console.log(dateEnd);
 if (!!selectedEncounter) {
-  const selectedBoss = encounterDict[selectedEncounter.split(" - ")[0]].names;
+  const selectedBoss = encounterDict[selectedEncounter.split(" - ")[0]]?.names || [selectedEncounter];
   let selectedDiff = selectedEncounter.split(" - ")[1];
   if (!selectedDiff) {
-    selectedDiff = ["", "Normal"];
+    selectedDiff = ["", "노말"];
   } else {
     selectedDiff = [selectedDiff];
   }
@@ -475,35 +495,34 @@ if (!!selectedEncounter) {
 if (!!selectedEncounter) {
   display(html`<div class="grid grid-cols-3 card" style="grid-auto-rows: auto;">
     <div>
-      Pulls: ${tableEncounters.length} (${formatDuration(avgPullDuration)} per
-      pull)
+      전투: ${tableEncounters.length} (평균 ${formatDuration(avgPullDuration)} 소요)
       <br />
-      Total Prog Time: ${formatDuration(totalDuration)}
+      총 소요 시간: ${formatDuration(totalDuration)}
     </div>
     <div>
-      Avg Team DPS: ${formatMillions(avgTeamDPS)}
+      평균 공대 DPS: ${formatMillions(avgTeamDPS)}
       <br />
-      Avg Dmg Taken: ${formatThousands(avgTeamDmgTaken)} (${formatThousands(
+      평균 받은 피해량: ${formatThousands(avgTeamDmgTaken)} (초당 ${formatThousands(
         avgTeamDPSTaken
-      )} DPS)
+      )})
     </div>
     <div>
-      Avg Sup. Performance: ${Math.round(avgAPUptime * 100)}/${Math.round(
+      평균 서포팅 수치: ${Math.round(avgAPUptime * 100)}/${Math.round(
         avgBrandUptime * 100
       )}/${Math.round(avgIdentityUptime * 100)}
       <br />
-      Avg Complete: ${avgBossBarsComplete}/${selectedBossTotalBars} bars
+      평균 깎은 줄: ${avgBossBarsComplete}/${selectedBossTotalBars}
     </div>
     <div class="grid-colspan-3">
-      <b>Best Run —</b> Log ID: ${bestEncounter.id} - Bars complete: ${bestEncounter.barsComplete}/${selectedBossTotalBars}
-      - Duration: ${formatDuration(bestEncounter.duration)} - Cleared: ${bestEncounter.cleared ==
+      <b>신기록 —</b> 로그 ID: ${bestEncounter.id} - 깎은 줄: ${bestEncounter.barsComplete}/${selectedBossTotalBars}
+      - 소요 시간: ${formatDuration(bestEncounter.duration)} - 클리어: ${bestEncounter.cleared ==
       1
-        ? "Yes"
-        : "No"}
+        ? "○"
+        : "✕"}
       <br />
-      DPS: ${formatMillions(bestEncounter.avgTeamDps)} - Total Damage Taken: ${formatThousands(
+      DPS: ${formatMillions(bestEncounter.avgTeamDps)} - 총 받은 피해량: ${formatThousands(
         bestEncounter.avgTeamDamageTaken
-      )} - Average Support Performance: ${Math.round(
+      )} - 평균 서포팅 수치: ${Math.round(
         bestEncounter.avgAPUptime * 100
       )}/${Math.round(bestEncounter.avgBrandUptime * 100)}/${Math.round(
         bestEncounter.avgIdentityUptime * 100
@@ -513,7 +532,7 @@ if (!!selectedEncounter) {
 }
 ```
 
-**${selectedEncounter ? "Pulls" : ""}**
+**${selectedEncounter ? "전투" : ""}**
 
 ```js encounters table
 function sparkbar(max) {
@@ -526,14 +545,14 @@ function sparkbar(max) {
     box-sizing: border-box;
     overflow: visible;
     display: flex;
-    justify-content: start;">${x.toLocaleString("en-US")}`;
+    justify-content: start;">${x.toLocaleString("ko-KR")}`;
 }
 
 const subBossFormat = {
   ID: String,
-  "DPS (Total)": formatMillions,
-  Duration: formatDuration,
-  "DPS Taken (Total)": formatThousands,
+  "DPS (총)": formatMillions,
+  "소요 시간": formatDuration,
+  "초당 받은 피해량 (총)": formatThousands,
 };
 const subBossWidths = {};
 let encounterTable, tableSelect;
@@ -546,17 +565,17 @@ if (!!selectedEncounter) {
   encounterTable = encounterInfos.map((enc) => {
     const row = {
       ID: enc.id,
-      "Bars Complete": enc.barsComplete,
-      Duration: enc.duration,
-      "DPS (Total)": enc.avgTeamDps,
-      "DPS Taken (Total)": enc.avgTeamDPSTaken,
-      "Sup. Perf.": `${Math.round(enc.avgAPUptime * 100)}/${Math.round(
+      "깍은 줄": enc.barsComplete,
+      "소요 시간": enc.duration,
+      "DPS (총)": enc.avgTeamDps,
+      "초당 받은 피해량 (총)": enc.avgTeamDPSTaken,
+      "서포팅 수치": `${Math.round(enc.avgAPUptime * 100)}/${Math.round(
         enc.avgBrandUptime * 100
       )}/${Math.round(enc.avgIdentityUptime * 100)}`,
-      Deaths: enc.playerInfo
+      "사망": enc.playerInfo
         .map((player) => player.deaths)
         .reduce((a, b) => a + b, 0),
-      Cleared: enc.cleared == 1 ? "Yes" : "No",
+      "클리어": enc.cleared == 1 ?  "○" : "✕",
     };
 
     for (let i = 0; i < enc.bossHPInfo.length; i++) {
@@ -593,7 +612,7 @@ if (!!selectedEncounter) {
 }
 ```
 
-**${selectedEncounter ? "Player Summaries" : ""}**
+**${selectedEncounter ? "플레이어 요약" : ""}**
 
 ```js player table
 if (!!selectedEncounter) {
@@ -620,36 +639,36 @@ if (!!selectedEncounter) {
       .flat();
 
     const row = {
-      Name: name,
-      Class: playerInfo[0].class,
-      Pulls: playerInfo.length,
-      "Last Party": playerInfo[playerInfo.length - 1].party,
-      "DPS (Avg)":
+      "이름": name,
+      "클래스": playerInfo[0].class,
+      "전투": playerInfo.length,
+      "마지막 파티": playerInfo[playerInfo.length - 1].party,
+      "DPS (평균)":
         playerInfo.map((player) => player.dps).reduce((a, b) => a + b, 0) /
         playerInfo.length,
-      "Crit Rate":
+      "치명타":
         playerInfo
           .map((player) => player.critPercent)
           .reduce((a, b) => a + b, 0) / playerInfo.length,
-      "FA Rate":
+      "헤드어택":
         playerInfo
           .map((player) => player.frontPercent)
           .reduce((a, b) => a + b, 0) / playerInfo.length,
-      "BA Rate":
+      "백어택":
         playerInfo
           .map((player) => player.backPercent)
           .reduce((a, b) => a + b, 0) / playerInfo.length,
-      "Dmg Taken (Avg)":
+      "받은 피해량 (평균)":
         playerInfo
           .map((player) => player.damageTaken)
           .reduce((a, b) => a + b, 0) / playerInfo.length,
-      "Deaths / Pull":
+      "전투 당 사망":
         playerInfo.map((player) => player.deaths).reduce((a, b) => a + b, 0) /
         playerInfo.length,
-      "Deaths (Total)": playerInfo
+      "사망 (총)": playerInfo
         .map((player) => player.deaths)
         .reduce((a, b) => a + b, 0),
-      Clears: playerInfo.filter((player) => player.cleared == 1).length,
+      "클리어": playerInfo.filter((player) => player.cleared == 1).length,
     };
 
     return row;
@@ -721,20 +740,20 @@ if (!!selectedEncounter) {
     // console.log(playerAllies);
 
     const row = {
-      Name: name,
-      Class: playerClass,
-      Pulls: player.length,
-      "Last Party": playerParty,
-      "AP %": allyAPUptime,
-      "Brand %": allyBrandUptime,
-      "Identity %": allyIdentityUptime,
-      "Dmg Shielded (Avg)": playerShielded,
-      "Dmg Taken (Avg)":
+      "이름": name,
+      "클래스": playerClass,
+      "전투": player.length,
+      "마지막 파티": playerParty,
+      "공증 %": allyAPUptime,
+      "낙인 %": allyBrandUptime,
+      "아덴 %": allyIdentityUptime,
+      "쉴드 (평균)": playerShielded,
+      "받은 피해량 (평균)":
         player.map((player) => player.damageTaken).reduce((a, b) => a + b, 0) /
         player.length,
-      "Deaths / Pull": playerDeaths / player.length,
-      "Deaths (Total)": playerDeaths,
-      Clears: player.filter((player) => player.cleared == 1).length,
+      "전투 당 사망": playerDeaths / player.length,
+      "사망 (총)": playerDeaths,
+      "클리어": player.filter((player) => player.cleared == 1).length,
     };
 
     return row;
@@ -746,28 +765,28 @@ if (!!selectedEncounter) {
       sort: "Pulls",
       reverse: true,
       format: {
-        "DPS (Avg)": formatMillions,
-        "Crit Rate": formatPercent,
-        "FA Rate": formatPercent,
-        "BA Rate": formatPercent,
-        "Dmg Taken (Avg)": formatThousands,
-        "Last Party": (x) => x + 1,
+        "DPS (평균)": formatMillions,
+        "치명타": formatPercent,
+        "헤드어택": formatPercent,
+        "백어택": formatPercent,
+        "받은 피해량 (평균)": formatThousands,
+        "마지막 파티": (x) => x + 1,
       },
     })
   );
-  display(html`<p>Supports</p>`);
+  display(html`<p>서포터</p>`);
   display(
     Inputs.table(supTable, {
       select: false,
       sort: "Pulls",
       reverse: true,
       format: {
-        "AP %": formatPercent,
-        "Brand %": formatPercent,
-        "Identity %": formatPercent,
-        "Dmg Shielded (Avg)": formatThousands,
-        "Dmg Taken (Avg)": formatThousands,
-        "Last Party": (x) => x + 1,
+        "공증 %": formatPercent,
+        "낙인 %": formatPercent,
+        "아덴 %": formatPercent,
+        "쉴드 (평균)": formatThousands,
+        "받은 피해량 (평균)": formatThousands,
+        "마지막 파티": (x) => x + 1,
       },
     })
   );
@@ -776,29 +795,29 @@ if (!!selectedEncounter) {
 
 ```js
 const x1Select = Inputs.select(
-  ["Bars Complete", "DPS (Total)", "Sup. Perf.", "Duration"],
+  ["깍은 줄", "DPS (총)", "서포팅 수치", "소요 시간"],
   {
-    label: "Top X Data",
-    value: "DPS (Total)",
+    label: "상위 데이터 x",
+    value: "DPS (총)",
   }
 );
 const x2Select = Inputs.select(
-  ["Bars Complete", "DPS (Total)", "Sup. Perf.", "Duration"],
+  ["깍은 줄", "DPS (총)", "서포팅 수치", "소요 시간"],
   {
-    label: "Bottom X Data",
-    value: "Bars Complete",
+    label: "하위 데이터 x",
+    value: "깍은 줄",
   }
 );
 
-const aggStatSelect = Inputs.select(["Max", "Average"], {
-  label: "Aggregate Stat",
-  value: "Max",
+const aggStatSelect = Inputs.select(["최대", "평균"], {
+  label: "집계 통계(Aggregate Stat)",
+  value: "최대",
 });
-const aggWindowSelect = Inputs.select(["Batched", "Rolling Window"], {
-  label: "Aggregate Method",
+const aggWindowSelect = Inputs.select(["Batched(배치 처리)", "Rolling Window(롤링 윈도우)"], {
+  label: "집계 방식(Method)",
 });
 const aggWindowRange = Inputs.range([1, 20], {
-  label: "Aggregate Window",
+  label: "집계 창(Window)",
   step: 1,
   value: 10,
 });
@@ -810,7 +829,7 @@ const aggWindowMethod = Generators.input(aggWindowSelect);
 const aggWindow = Generators.input(aggWindowRange);
 ```
 
-**${selectedEncounter ? "Progression Graph" : ""}**
+**${selectedEncounter ? "진행 그래프" : ""}**
 
 ```js figure control div
 if (!!selectedEncounter) {
@@ -828,23 +847,23 @@ if (!!selectedEncounter) {
   figureOrigData.sort((a, b) => a.id - b.id);
 
   function aggData(logs, column, stat) {
-    if (stat == "Average") {
+    if (stat == "평균") {
       const nLogs = logs.length;
-      return column == "Sup. Perf."
+      return column == "서포팅 수치"
         ? logs
             .map((d) =>
-              d["Sup. Perf."]
+              d["서포팅 수치"]
                 .split("/")
                 .map((d) => Number(d))
                 .reduce((a, b) => a + b, 0)
             )
             .reduce((a, b) => a + b, 0) / nLogs
         : logs.map((d) => d[column]).reduce((a, b) => a + b, 0) / nLogs;
-    } else if (stat == "Max") {
-      return column == "Sup. Perf."
+    } else if (stat == "최대") {
+      return column == "서포팅 수치"
         ? Math.max(
             ...logs.map((d) =>
-              d["Sup. Perf."]
+              d["서포팅 수치"]
                 .split("/")
                 .map((d) => Number(d))
                 .reduce((a, b) => a + b, 0)
@@ -856,7 +875,7 @@ if (!!selectedEncounter) {
 
   figureData = [];
   let i;
-  if (aggWindowMethod == "Batched") {
+  if (aggWindowMethod == "Batched(배치 처리)") {
     const steps = Math.ceil(figureOrigData.length / aggWindow);
     for (i = 0; i < steps; i++) {
       const windowLogs = figureOrigData.slice(
@@ -875,7 +894,7 @@ if (!!selectedEncounter) {
         x2: aggData(windowLogs, x2Var, aggStat),
       });
     }
-  } else if (aggWindowMethod == "Rolling Window") {
+  } else if (aggWindowMethod == "Rolling Window(롤링 윈도우)") {
     let backHalf = Math.floor((aggWindow - 1) / 2);
     let frontHalf = Math.ceil((aggWindow - 1) / 2) + 1;
     for (i = 0; i < figureOrigData.length; i++) {
@@ -908,9 +927,9 @@ if (!!selectedEncounter) {
 ```js figure
 if (!!selectedEncounter) {
   const x1Max =
-    x1Var == "Sup. Perf." ? 300 : Math.max(...figureData.map((d) => d.x1));
+    x1Var == "서포팅 수치" ? 300 : Math.max(...figureData.map((d) => d.x1));
   const x2Max =
-    x2Var == "Sup. Perf." ? 300 : Math.max(...figureData.map((d) => d.x2));
+    x2Var == "서포팅 수치" ? 300 : Math.max(...figureData.map((d) => d.x2));
 
   // Create x-scale based x1/x2
   const x1Scale = d3
@@ -963,9 +982,9 @@ if (!!selectedEncounter) {
 
   // Add x-axis
   let xAxisTop = d3.axisTop(x1Scale);
-  if (x1Var == "DPS (Total)") {
+  if (x1Var == "DPS (총)") {
     xAxisTop = xAxisTop.tickFormat((d) => formatMillions(d));
-  } else if (x1Var == "Duration") {
+  } else if (x1Var == "소요 시간") {
     xAxisTop = xAxisTop.tickFormat((d) => formatDuration(d));
   }
   fig
@@ -984,10 +1003,10 @@ if (!!selectedEncounter) {
     .style("font", "10px/1.6 var(--sans-serif)")
     .text(x1Var);
 
-  const xAxisBot = d3.axisBottom(x2Scale);
-  if (x2Var == "DPS (Total)") {
+  let xAxisBot = d3.axisBottom(x2Scale);
+  if (x2Var == "DPS (총)") {
     xAxisBot = xAxisBot.tickFormat((d) => formatMillions(d));
-  } else if (x2Var == "Duration") {
+  } else if (x2Var == "소요 시간") {
     xAxisBot = xAxisBot.tickFormat((d) => formatDuration(d));
   }
   fig
@@ -1017,7 +1036,7 @@ if (!!selectedEncounter) {
     .attr("transform", "rotate(-90)")
     .attr("fill", "var(--theme-foreground)")
     .style("font", "10px/1.6 var(--sans-serif)")
-    .text("Log ID");
+    .text("로그 ID");
 
   display(svg.node());
 }
